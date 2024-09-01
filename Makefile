@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -O3
+CFLAGS = -Wall -O3 -march=native -mtune=native
 LDFLAGS = -lzint -lhpdf -lpng -lz
 
 SRCS = labels.c
