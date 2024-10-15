@@ -17,6 +17,7 @@
 #include <string.h>
 #include <zint.h>
 #include <hpdf.h>
+#include "version.h"
 
 #define A6_WIDTH (148.0 * 2.83464567)  // 148 mm in points
 #define A6_HEIGHT (105.0 * 2.83464567) // 105 mm in points
@@ -88,7 +89,6 @@ void create_label(HPDF_Doc pdf, HPDF_Font font, int zona, int bloque, int fila, 
     HPDF_Page_TextOut(page, (A6_WIDTH - text_width) / 2, A6_HEIGHT - 60, label);
     HPDF_Page_EndText(page);
 
- 
     // Pintar numero de altura
     HPDF_Page_BeginText(page);
     snprintf(label, sizeof(label), "%1d", altura);
@@ -128,6 +128,10 @@ void create_labels_for_bloque(HPDF_Doc pdf, HPDF_Font font, int zona, int bloque
 }
 
 int main(int argc, char *argv[]) {
+    if (argc > 1 && strcmp(argv[1], "--version") == 0) {
+        printf("%s version %d.%d.%d\n", PROGRAM_NAME, VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+        return 0;
+    }
     if (argc != 5) {
         fprintf(stderr, "Uso: %s <zona> <bloques> <filas> <alturas>\n", argv[0]);
         return 1;
